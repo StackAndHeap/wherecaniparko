@@ -8,8 +8,10 @@
 
     <fx:Script><![CDATA[
         import model.ParkingSpot;
-        import model.Session;
         import model.ShopAndGoSpot;
+
+        [Embed(source='../../../wherecaniparko/icons/48x48.png')]
+        public var parko:Class;
 
         override public function set data(value:Object):void {
             super.data = value;
@@ -53,26 +55,61 @@
     </s:states>
 
     <s:layout>
-        <s:VerticalLayout/>
+        <s:VerticalLayout paddingTop="10" paddingLeft="10" paddingBottom="10" paddingRight="10"/>
     </s:layout>
 
     <s:navigationContent>
         <s:Button label="&lt;" click="backButton_clickHandler(event)"/>
     </s:navigationContent>
 
-    <s:VGroup contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100">
-        <s:Label text="Adres" includeIn="parkingSpotState"/>
-        <s:Label text="{(data as ParkingSpot).address}" includeIn="parkingSpotState"/>
+    <s:HGroup>
+        <s:VGroup>
+            <s:Image source="{parko}" height="77" width="77"/>
+        </s:VGroup>
+        <s:VGroup>
+            <s:Label text="Adres" includeIn="parkingSpotState"
+                     paddingLeft="5"
+                     fontSize="16"
+                     fontWeight="bold"
+                     color="#FFFFFF"/>
+            <s:Label text="{(data as ParkingSpot).address}" includeIn="parkingSpotState"
+                     paddingLeft="5"
+                     fontSize="16"
+                     color="#FFFFFF"/>
+            <s:Spacer height="10" includeIn="parkingSpotState"/>
+            <s:Label text="Aantal vrije plaatsen" includeIn="parkingSpotState"
+                     paddingLeft="5"
+                     fontSize="16"
+                     fontWeight="bold"
+                     color="#FFFFFF"/>
+            <s:Label text="{(data as ParkingSpot).numFree}" includeIn="parkingSpotState"
+                     paddingLeft="5"
+                     fontSize="16"
+                     color="#FFFFFF"/>
+            <s:Spacer height="10" includeIn="parkingSpotState"/>
+            <s:Label text="Afstand"
+                     paddingLeft="5"
+                     fontSize="16"
+                     fontWeight="bold"
+                     color="#FFFFFF"/>
+            <s:Label text="{data.distance}"
+                     paddingLeft="5"
+                     fontSize="16"
+                     color="#FFFFFF"/>
+            <s:Spacer height="10"/>
+            <s:Label text="Reistijd"
+                     paddingLeft="5"
+                     fontSize="16"
+                     fontWeight="bold"
+                     color="#FFFFFF"/>
+            <s:Label text="{data.distance}"
+                     paddingLeft="5"
+                     fontSize="16"
+                     color="#FFFFFF"/>
+        </s:VGroup>
+    </s:HGroup>
 
-        <s:Label text="Aantal vrije plaatsen" includeIn="parkingSpotState"/>
-        <s:Label text="{(data as ParkingSpot).numFree}" includeIn="parkingSpotState"/>
-
-        <s:Label text="Afstand"/>
-        <s:Label text="{data.distance}"/>
-
-        <s:Label text="Reistijd"/>
-        <s:Label text="{data.distance}"/>
-    </s:VGroup>
+    <s:Spacer height="100%"/>
 
     <s:Button id="navigateButton" width="100%" label="Ga" click="navigateButton_clickHandler(event)"/>
     <s:Button id="startTimerButton" width="100%" label="Ik ben er" click="startTimerButton_clickHandler(event)"/>
