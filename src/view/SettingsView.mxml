@@ -2,15 +2,14 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
         title="Instellingen">
 
+	<s:layout>
+		<s:VerticalLayout paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10"/>
+	</s:layout>
+
 	<fx:Script>
 		<![CDATA[
 		import model.AbstractParkingSpot;
 		import model.Session;
-
-		private function checkBox1_changeHandler(event:Event):void {
-			Session.onlyShowFree = check.selected;
-			filterParkings();
-		}
 
 		private function isFree(item:AbstractParkingSpot):Boolean {
 			return item.isFree;
@@ -20,10 +19,37 @@
 			Session.parkings.filterFunction = Session.onlyShowFree ? isFree : null;
 			Session.parkings.refresh();
 		}
+
+		private function checkBox1_changeHandler(event:Event):void {
+			Session.onlyShowFree = check.selected;
+			filterParkings();
+		}
+
+		private function showParkingsCheckBox_changeHandler(event:Event):void {
+			Session.showParkings = check.selected;
+			filterParkings();
+		}
+
+		private function showShopAndGoCheckBox_changeHandler(event:Event):void {
+			Session.showShopAndGo = check.selected;
+			filterParkings();
+		}
 		]]>
 	</fx:Script>
 
-	<s:CheckBox id="check" selected="{Session.onlyShowFree}" label="Enkel vrije plaatsen"
+	<s:CheckBox id="check"
+	            selected="{Session.onlyShowFree}"
+	            label="Enkel vrije plaatsen"
 	            change="checkBox1_changeHandler(event)"/>
+
+	<s:CheckBox id="showParkingsCheckBox"
+	            label="Toon parkings"
+	            selected="{Session.showParkings}"
+	            change="showParkingsCheckBox_changeHandler(event)"/>
+
+	<s:CheckBox id="showShopAndGoCheckBox"
+	            label="Toon Shop 'n Go plaatsen"
+	            selected="{Session.showShopAndGo}"
+	            change="showShopAndGoCheckBox_changeHandler(event)"/>
 
 </s:View>

@@ -24,8 +24,18 @@
 		private var _geo:Geolocation;
 
 		private function applicationCompleteHandler(event:FlexEvent):void {
-			_geo = new Geolocation();
-			_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
+			if (Geolocation.isSupported) {
+				_geo = new Geolocation();
+				_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
+				Session.location = new Location(50, 10);
+			} else {
+				showNoGeolocation();
+				Session.location = new Location(10, 20);
+			}
+		}
+
+		private function showNoGeolocation():void {
+
 		}
 
 		private function geo_updateHandler(event:GeolocationEvent):void {
