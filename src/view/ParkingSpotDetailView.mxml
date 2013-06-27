@@ -7,6 +7,7 @@
         tabBarVisible="false">
 
     <fx:Script><![CDATA[
+        import model.AbstractParkingSpot;
         import model.ParkingSpot;
         import model.ShopAndGoSpot;
 
@@ -44,6 +45,24 @@
             navigateButton.enabled = false;
 
         }
+
+        private function formatDistance(parkingSpot:AbstractParkingSpot):String {
+            var distance:Number = Math.round(data.distance * 100) / 100;
+
+            if (distance < 1) {
+                distance *= 1000;
+                return distance + " m";
+            }
+
+            return distance + " Km";
+
+        }
+
+        private function formatReistijd(parkingSpot:AbstractParkingSpot):String {
+            var distance:Number = Math.round(parkingSpot.distance * 100) / 100;
+            var percent:Number = distance / 35 * 3600;
+            return (Math.round(percent * 100) / 100) + " seconden";
+        }
         ]]>
     </fx:Script>
 
@@ -69,42 +88,42 @@
         <s:VGroup>
             <s:Label text="Adres" includeIn="parkingSpotState"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      fontWeight="bold"
                      color="#FFFFFF"/>
             <s:Label text="{(data as ParkingSpot).address}" includeIn="parkingSpotState"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      color="#FFFFFF"/>
             <s:Spacer height="10" includeIn="parkingSpotState"/>
             <s:Label text="Aantal vrije plaatsen" includeIn="parkingSpotState"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      fontWeight="bold"
                      color="#FFFFFF"/>
             <s:Label text="{(data as ParkingSpot).numFree}" includeIn="parkingSpotState"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      color="#FFFFFF"/>
             <s:Spacer height="10" includeIn="parkingSpotState"/>
             <s:Label text="Afstand"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      fontWeight="bold"
                      color="#FFFFFF"/>
-            <s:Label text="{data.distance}"
+            <s:Label text="{formatDistance(data as AbstractParkingSpot)}"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      color="#FFFFFF"/>
             <s:Spacer height="10"/>
             <s:Label text="Reistijd"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      fontWeight="bold"
                      color="#FFFFFF"/>
-            <s:Label text="{data.distance}"
+            <s:Label text="{formatReistijd(data as AbstractParkingSpot)}"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      color="#FFFFFF"/>
         </s:VGroup>
     </s:HGroup>
