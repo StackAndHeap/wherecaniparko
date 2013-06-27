@@ -3,6 +3,7 @@ import flash.events.Event;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
+import model.Address;
 import model.ParkingSpot;
 import model.ShopAndGoSpot;
 import model.SpotState;
@@ -21,6 +22,7 @@ public class ParkoService {
 
     private var _lattitudes:Array = [];
     private var _longitudes:Array = [];
+    private var _addresses:Array = [];
 
     [Bindable]
     public var parkingSpots:ArrayCollection = new ArrayCollection();
@@ -29,6 +31,11 @@ public class ParkoService {
     public function ParkoService() {
         getShopAndGoData();
         getBezettingData();
+
+        _addresses[P_VEEMARKT] = Address.getAddress("Belgium", "Kortrijk", "8500", "Veemarkt", "");
+        _addresses[P_TACK] = Address.getAddress("Belgium", "Kortrijk", "8500", "Minister Tacklaan", "");
+        _addresses[P_BROELTORENS] = Address.getAddress("Belgium", "Kortrijk", "8500", "Damkaai", "");
+        _addresses[P_SCHOUWBURG] = Address.getAddress("Belgium", "Kortrijk", "8500", "Schouwburgplein", "");
 
         _lattitudes[P_VEEMARKT] = 50.8312216768968;
         _lattitudes[P_TACK] = 50.82365689950371;
@@ -57,13 +64,23 @@ public class ParkoService {
         for each (var object:Object in parseData.shopandgo.Sensor) {
             var shopAndGoSpot:ShopAndGoSpot = new ShopAndGoSpot();
             shopAndGoSpot.name = object._Street;
-            shopAndGoSpot.lat = object._Lat; // "50 49'32.62"N"
-            shopAndGoSpot.long = object._Long; // "3 15'41.83"O"
+            shopAndGoSpot.lat = convertDegreesToDecimal(object._Lat); // "50 49'32.62"N" Degrees + minutes/60 + seconds/3600
+            shopAndGoSpot.long = convertDegreesToDecimal(object._Long); // "3 15'41.83"O"
             shopAndGoSpot.bayNumber = object._Parkingbay;
             shopAndGoSpot.isFree = object._State == "Free";
 
             parkingSpots.addItem(shopAndGoSpot);
         }
+    }
+
+    private function convertDegreesToDecimal(value:String):Number {
+        var parts:Array = value.split(" ");
+
+        var degrees:Number = parts[0];
+        var minutes:Number = parts[1].split("'")[0];
+        var seconds:Number = parts[1].split("'")[1].split("\"")[0];
+
+        return degrees + minutes / 60 + seconds / 3600;
     }
 
     private function bezettingDataLoader_completeHandler(event:Event):void {
@@ -72,12 +89,14 @@ public class ParkoService {
         for each (var object:Object in parseData.bezettingparkings.parking) {
             var parkingSpot:ParkingSpot = new ParkingSpot();
             parkingSpot.name = object.parking;
-            parkingSpot.lat = _lattitudes[object.parking];
-            parkingSpot.long = _longitudes[object.parking];
+            parkingSpot.lat = _lattitudes[parkingSpot.name];
+            parkingSpot.long = _longitudes[parkingSpot.name];
             parkingSpot.isFree = (parkingSpot.numFree) ? SpotState.FREE : SpotState.OCCUPIED;
             parkingSpot.numFree = object._vrij;
             parkingSpot.numOccupied = object._bezet;
             parkingSpot.capacity = object._capaciteit;
+
+            parkingSpot.address = _addresses[parkingSpot.name];
 
             parkingSpots.addItem(parkingSpot);
         }

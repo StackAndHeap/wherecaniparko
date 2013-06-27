@@ -9,5 +9,17 @@ public class Address {
 
     public function Address() {
     }
+
+    public static function getAddress(country:String, city:String, postalCode, street:String, number):Address {
+        var result:Address = new Address();
+
+        result.city = city;
+        result.country = country;
+        result.number = number;
+        result.postalCode = postalCode;
+        result.street = street;
+
+        return result;
+    }
 }
 }
