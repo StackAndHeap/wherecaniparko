@@ -2,7 +2,7 @@
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
                                   xmlns:s="library://ns.adobe.com/flex/spark"
                                   applicationComplete="applicationCompleteHandler(event)"
-                                  splashScreenImage="@Embed('../icons/91x91.png')"
+                                  splashScreenImage="@Embed('../icons/splash.png')"
                                   splashScreenScaleMode="none"
                                   viewMenuOpen="true"
                                   contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
