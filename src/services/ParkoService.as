@@ -8,7 +8,10 @@ import flash.utils.Timer;
 
 import model.AbstractParkingSpot;
 import model.Address;
+import model.DistanceUtil;
+import model.Location;
 import model.ParkingSpot;
+import model.Session;
 import model.ShopAndGoSpot;
 import model.SpotState;
 
@@ -66,6 +69,8 @@ public class ParkoService {
 
         getRemoteData();
         startUpdateTimer();
+
+        Session.parkings = parkingSpots;
     }
 
     private function getRemoteData():void {
@@ -89,8 +94,7 @@ public class ParkoService {
         for each (var object:Object in parseData.shopandgo.Sensor) {
             var shopAndGoSpot:ShopAndGoSpot = new ShopAndGoSpot();
             shopAndGoSpot.name = object._Street;
-            shopAndGoSpot.lat = convertDegreesToDecimal(object._Lat); // "50 49'32.62"N" Degrees + minutes/60 + seconds/3600
-            shopAndGoSpot.long = convertDegreesToDecimal(object._Long); // "3 15'41.83"O"
+            shopAndGoSpot.location = new Location(convertDegreesToDecimal(object._Lat), convertDegreesToDecimal(object._Long)); // "50 49'32.62"N" Degrees + minutes/60 + seconds/3600
             shopAndGoSpot.bayNumber = object._Parkingbay;
             shopAndGoSpot.isFree = object._State == "Free";
 
@@ -104,8 +108,7 @@ public class ParkoService {
         for each (var object:Object in parseData.bezettingparkings.parking) {
             var parkingSpot:ParkingSpot = new ParkingSpot();
             parkingSpot.name = object.parking;
-            parkingSpot.lat = _latitudes[parkingSpot.name];
-            parkingSpot.long = _longitudes[parkingSpot.name];
+            parkingSpot.location = new Location(_latitudes[parkingSpot.name], _longitudes[parkingSpot.name]); // "50 49'32.62"N" Degrees + minutes/60 + seconds/3600
             parkingSpot.isFree = (parkingSpot.numFree) ? SpotState.FREE : SpotState.OCCUPIED;
             parkingSpot.numFree = object._vrij;
             parkingSpot.numOccupied = object._bezet;
@@ -134,6 +137,8 @@ public class ParkoService {
             parkingSpots.addItem(parkingSpot);
             _parkingSpotLookup[key] = parkingSpot;
         }
+
+        parkingSpot.distance = DistanceUtil.calculateDistance(Session.location, parkingSpot.location);
     }
 
     private function createLookupKey(parkingSpot:AbstractParkingSpot):String {

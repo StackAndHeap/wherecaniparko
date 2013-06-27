@@ -5,8 +5,9 @@ public class AbstractParkingSpot {
 
     public var name:String;
     public var isFree:Boolean;
-    public var long:Number;
-    public var lat:Number;
+    public var location:Location;
+
+    public var distance:Number;
 
     public function AbstractParkingSpot() {
     }
