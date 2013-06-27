@@ -1,41 +1,38 @@
 <?xml version="1.0"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-		title="Parkings" creationComplete="creationCompleteHandler(event)">
+        title="Parkings">
 
-	<s:layout>
-		<s:VerticalLayout/>
-	</s:layout>
+    <s:layout>
+        <s:VerticalLayout/>
+    </s:layout>
 
-	<fx:Script><![CDATA[
+    <fx:Script><![CDATA[
         import model.Location;
-        import model.ParkingSpot;
         import model.Session;
-        import model.SpotState;
 
-        import mx.collections.ArrayCollection;
-        import mx.core.FlexGlobals;
-        import mx.events.FlexEvent;
+        import spark.components.ViewNavigator;
+
+        import spark.components.ViewNavigatorApplication;
 
         import spark.events.IndexChangeEvent;
 
         private function list_changeHandler(event:IndexChangeEvent):void {
             trace("list change");
+            navigator.pushView(ParkingSpotDetailView, list.selectedItem)
         }
 
         private function formatLocation(location:Location):String {
             return Math.random() + 'L: ' + Session.location;
         }
-
         ]]></fx:Script>
 
-		<s:List id="list"
-			        dataProvider="{Session.parkings}"
-			        width="100%" height="100%"
-			        labelField="name"
-                    contentBackgroundColor="#2f3d39"
-			        itemRenderer="view.renderer.ParkingItemRenderer"
-					change="list_changeHandler(event)">
+    <s:List id="list"
+            dataProvider="{Session.parkings}"
+            width="100%" height="100%"
+            labelField="name"
+            itemRenderer="view.renderer.ParkingItemRenderer"
+            change="list_changeHandler(event)">
 
-			</s:List>
+    </s:List>
 
 </s:View>

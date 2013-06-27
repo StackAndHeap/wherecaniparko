@@ -23,5 +23,9 @@ public class Address {
 
         return result;
     }
+
+    public function toString():String {
+        return street + " " + number + ", " + postalCode + " " + city;
+    }
 }
 }

@@ -16,6 +16,8 @@ import model.ShopAndGoSpot;
 import model.SpotState;
 
 import mx.collections.ArrayCollection;
+import mx.collections.Sort;
+import mx.collections.SortField;
 
 public class ParkoService {
 
@@ -34,7 +36,7 @@ public class ParkoService {
     private var _updateTimer:Timer;
 
     [Bindable]
-    public var parkingSpots:ArrayCollection = new ArrayCollection();
+    public var parkingSpots:ArrayCollection;
 
 
     private var _parkingSpotLookup:Dictionary = new Dictionary();
@@ -66,6 +68,14 @@ public class ParkoService {
         _longitudes[P_TACK] = 3.261152652587953;
         _longitudes[P_BROELTORENS] = 3.268091527309480;
         _longitudes[P_SCHOUWBURG] = 3.26671018966681;
+
+        parkingSpots = new ArrayCollection();
+
+        var sort:Sort = new Sort();
+        sort.fields = [new SortField("distance", true, false, true)];
+
+        parkingSpots.sort = sort;
+        parkingSpots.refresh();
 
         getRemoteData();
         startUpdateTimer();
@@ -139,6 +149,7 @@ public class ParkoService {
         }
 
         parkingSpot.distance = DistanceUtil.calculateDistance(Session.location, parkingSpot.location);
+        parkingSpots.refresh();
     }
 
     private function createLookupKey(parkingSpot:AbstractParkingSpot):String {
