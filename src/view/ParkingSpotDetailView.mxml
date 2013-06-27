@@ -12,10 +12,15 @@
         import model.ShopAndGoSpot;
 
         [Bindable]
-        private var _clock:Clock = new Clock(1800);
+        private var _clock:Clock;
 
         [Embed(source='../../../wherecaniparko/icons/48x48.png')]
         public var parko:Class;
+
+
+        private function get clockIsRunning():Boolean {
+            return _clock && _clock.isRunning;
+        }
 
         override public function set data(value:Object):void {
             super.data = value;
@@ -25,15 +30,6 @@
 
         private function navigateButton_clickHandler(event:MouseEvent):void {
             startNavigation();
-
-            if (data is ShopAndGoSpot) {
-                startShopAndGoTimer();
-            }
-        }
-
-        private function startShopAndGoTimer():void {
-            // start timer that informs user of remaning time on shop and go spot.
-            // alert on timer complete
         }
 
         private function startNavigation():void {
@@ -47,8 +43,13 @@
         private function startTimerButton_clickHandler(event:MouseEvent):void {
             navigateButton.enabled = false;
 
+            if (!_clock) {
+                var freeTime:uint = (data is ShopAndGoSpot) ? 1800 : 3600;
+                _clock = new Clock(freeTime);
+            }
+
             if (!_clock.isRunning) {
-                _clock.start()
+                _clock.start();
             }
             else {
                 _clock.reset();
@@ -139,12 +140,24 @@
 
     <s:Spacer height="100%"/>
 
+    <s:Label textAlign="center"
+             color="#ffffff"
+             fontSize="50"
+             text="Gratis parkeertijd:"
+             visible="{_clock &amp;&amp; _clock.isRunning}"
+             width="100%"/>
+
+    <s:Label textAlign="center"
+             color="#ffffff"
+             fontSize="50"
+             text="{_clock.timeString}"
+             visible="{_clock &amp;&amp; _clock.isRunning}"
+             width="100%"/>
+
     <s:Button id="navigateButton" width="100%" label="Navigeer naar" click="navigateButton_clickHandler(event)"/>
     <s:Button id="startTimerButton"
               width="100%"
-              label="{(_clock.isRunning) ? 'Ik ben terug' : 'Ik ben er'}"
+              label="{(_clock &amp;&amp; _clock.isRunning) ? 'Ik ben terug' : 'Ik ben er'}"
               click="startTimerButton_clickHandler(event)"/>
-
-    <s:Label text="{_clock.timeString}" visible="{_clock.isRunning}" width="100%"/>
 
 </s:View>
