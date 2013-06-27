@@ -2,59 +2,55 @@
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
                                   xmlns:s="library://ns.adobe.com/flex/spark"
                                   applicationComplete="applicationCompleteHandler(event)"
-                                  splashScreenImage="@Embed('../icons/91x91.png')"
+                                  splashScreenImage="@Embed('../icons/splash.png')"
                                   splashScreenScaleMode="none"
                                   viewMenuOpen="true"
                                   contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
                                   splashScreenMinimumDisplayTime="2000"
                                   backgroundColor="#2f3d39">
 
-	<fx:Script><![CDATA[
-		import flash.sensors.Geolocation;
+    <fx:Script><![CDATA[
+        import flash.sensors.Geolocation;
 
-		import model.Location;
-		import model.Session;
+        import model.Location;
+        import model.Session;
 
-		import model.Session;
+        import mx.events.FlexEvent;
 
-		import mx.events.FlexEvent;
+        import services.ParkoService;
 
-		import services.ParkoService;
+        [Bindable]
+        public var parkoService:ParkoService = new ParkoService();
 
-		[Bindable]
-		public var parkoService:ParkoService = new ParkoService();
+        private var _geo:Geolocation;
 
-		private var _geo:Geolocation;
+        private function applicationCompleteHandler(event:FlexEvent):void {
+            if (Geolocation.isSupported) {
+                _geo = new Geolocation();
+                if (_geo.muted) {
+                    showMutedWarning();
+                } else {
+                    _geo.setRequestedUpdateInterval(1000);
+                    _geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
+                }
+            } else {
+                showNoGeolocationWarning();
+            }
+        }
 
-		private function applicationCompleteHandler(event:FlexEvent):void {
-			if (Geolocation.isSupported) {
-				_geo = new Geolocation();
-				if (_geo.muted) {
-					showMutedWarning();
-					Session.location = new Location(20, 20);
-				} else {
-					_geo.setRequestedUpdateInterval(1000);
-					_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
-					Session.location = new Location(50, 50);
-				}
-			} else {
-				showNoGeolocationWarning();
-				Session.location = new Location(10, 10);
-			}
-		}
+        private function showMutedWarning():void {
+        }
 
-		private function showMutedWarning():void {}
+        private function showNoGeolocationWarning():void {
 
-		private function showNoGeolocationWarning():void {
+        }
 
-		}
+        private function geo_updateHandler(event:GeolocationEvent):void {
+            Session.location = new Location(event.latitude, event.longitude);
+        }
+        ]]></fx:Script>
 
-		private function geo_updateHandler(event:GeolocationEvent):void {
-			Session.location = new Location(event.latitude, event.longitude);
-		}
-		]]></fx:Script>
-
-	<s:ViewNavigator label="Parkings" width="100%" height="100%" firstView="view.Overview"/>
-	<s:ViewNavigator label="Instellingen" width="100%" height="100%" firstView="view.SettingsView"/>
+    <s:ViewNavigator label="Parkings" width="100%" height="100%" firstView="view.Overview"/>
+    <s:ViewNavigator label="Instellingen" width="100%" height="100%" firstView="view.SettingsView"/>
 
 </s:TabbedViewNavigatorApplication>

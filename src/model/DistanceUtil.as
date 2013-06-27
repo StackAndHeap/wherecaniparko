@@ -7,16 +7,16 @@ public class DistanceUtil {
     }
 
     public static function calculateDistance(from:Location, to:Location):Number {
-        var dLat = degreesToRadians(to.latitude - from.latitude);
-        var dLon = degreesToRadians(to.longitude - from.longitude);
-        var lat1 = degreesToRadians(from.latitude);
-        var lat2 = degreesToRadians(to.latitude);
+        var dLat:Number = degreesToRadians(to.latitude - from.latitude);
+        var dLon:Number = degreesToRadians(to.longitude - from.longitude);
+        var lat1:Number = degreesToRadians(from.latitude);
+        var lat2:Number = degreesToRadians(to.latitude);
 
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        var a:Number = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var c:Number = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        var result = EARTH_RADIUS * c;
+        var result:Number = EARTH_RADIUS * c;
 
         return result;
     }
