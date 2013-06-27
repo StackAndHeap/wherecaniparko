@@ -1,10 +1,11 @@
 package model {
-public class ParkingSpot {
+public class ParkingSpot extends AbstractParkingSpot {
 
-    public var name:String;
-    public var state:SpotState;
-    public var long:String;
-    public var lat:String;
+    public var numOccupied:int;
+    public var numFree:int;
+    public var capacity:int;
+
+    public var address:Address;
 
     public function ParkingSpot() {
     }
