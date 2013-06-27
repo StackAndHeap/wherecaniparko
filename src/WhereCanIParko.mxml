@@ -27,15 +27,23 @@
 		private function applicationCompleteHandler(event:FlexEvent):void {
 			if (Geolocation.isSupported) {
 				_geo = new Geolocation();
-				_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
-				Session.location = new Location(50, 10);
+				if (_geo.muted) {
+					showMutedWarning();
+					Session.location = new Location(20, 20);
+				} else {
+					_geo.setRequestedUpdateInterval(1000);
+					_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
+					Session.location = new Location(50, 50);
+				}
 			} else {
-				showNoGeolocation();
-				Session.location = new Location(10, 20);
+				showNoGeolocationWarning();
+				Session.location = new Location(10, 10);
 			}
 		}
 
-		private function showNoGeolocation():void {
+		private function showMutedWarning():void {}
+
+		private function showNoGeolocationWarning():void {
 
 		}
 
