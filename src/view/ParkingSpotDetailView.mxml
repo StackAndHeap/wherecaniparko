@@ -2,13 +2,16 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:s="library://ns.adobe.com/flex/spark"
         title="{data.name}"
-        contentBackgroundAlpha="100"
-        contentBackgroundColor="#2f3d39"
+        contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
         tabBarVisible="false">
 
     <fx:Script><![CDATA[
+        import model.Clock;
         import model.ParkingSpot;
         import model.ShopAndGoSpot;
+
+        [Bindable]
+        private var _clock:Clock = new Clock(1800);
 
         [Embed(source='../../../wherecaniparko/icons/48x48.png')]
         public var parko:Class;
@@ -43,6 +46,12 @@
         private function startTimerButton_clickHandler(event:MouseEvent):void {
             navigateButton.enabled = false;
 
+            if (!_clock.isRunning) {
+                _clock.start()
+            }
+            else {
+                _clock.reset();
+            }
         }
         ]]>
     </fx:Script>
@@ -111,7 +120,12 @@
 
     <s:Spacer height="100%"/>
 
-    <s:Button id="navigateButton" width="100%" label="Ga" click="navigateButton_clickHandler(event)"/>
-    <s:Button id="startTimerButton" width="100%" label="Ik ben er" click="startTimerButton_clickHandler(event)"/>
+    <s:Button id="navigateButton" width="100%" label="Navigeer naar" click="navigateButton_clickHandler(event)"/>
+    <s:Button id="startTimerButton"
+              width="100%"
+              label="{(_clock.isRunning) ? 'Ik ben terug' : 'Ik ben er'}"
+              click="startTimerButton_clickHandler(event)"/>
+
+    <s:Label text="{_clock.timeString}" visible="{_clock.isRunning}" width="100%"/>
 
 </s:View>
