@@ -3,4 +3,5 @@
     <s:navigationContent>
         <s:Button label="Home" click="navigator.popToFirstView()"/>
     </s:navigationContent>
+
 </s:ViewNavigatorApplication>
