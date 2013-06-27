@@ -2,7 +2,8 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:s="library://ns.adobe.com/flex/spark"
         title="{data.name}"
-        contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
+        contentBackgroundAlpha="100"
+        contentBackgroundColor="#2f3d39"
         tabBarVisible="false">
 
     <fx:Script><![CDATA[
@@ -39,6 +40,8 @@
         ]]>
     </fx:Script>
 
+    <s:backgroundColor>#2f3d39</s:backgroundColor>
+
     <s:states>
         <s:State name="parkingSpotState"/>
         <s:State name="shopAndGoState"/>
@@ -53,17 +56,17 @@
     </s:navigationContent>
 
     <s:VGroup contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100">
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="Adres" includeIn="parkingSpotState"/>
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="{(data as ParkingSpot).address}" includeIn="parkingSpotState"/>
+        <s:Label text="Adres" includeIn="parkingSpotState"/>
+        <s:Label text="{(data as ParkingSpot).address}" includeIn="parkingSpotState"/>
 
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="Aantal vrije plaatsen" includeIn="parkingSpotState"/>
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="{(data as ParkingSpot).numFree}" includeIn="parkingSpotState"/>
+        <s:Label text="Aantal vrije plaatsen" includeIn="parkingSpotState"/>
+        <s:Label text="{(data as ParkingSpot).numFree}" includeIn="parkingSpotState"/>
 
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="Afstand"/>
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="{data.distance}"/>
+        <s:Label text="Afstand"/>
+        <s:Label text="{data.distance}"/>
 
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="Reistijd"/>
-        <s:Label backgroundColor="#2f3d39" backgroundAlpha="100" text="{data.distance}"/>
+        <s:Label text="Reistijd"/>
+        <s:Label text="{data.distance}"/>
     </s:VGroup>
 
     <s:Button id="navigateButton" width="100%" label="Ga" click="navigateButton_clickHandler(event)"/>
