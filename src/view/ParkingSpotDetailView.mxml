@@ -10,6 +10,7 @@
         import model.AbstractParkingSpot;
         import model.ParkingSpot;
         import model.ShopAndGoSpot;
+        import model.TimeUtil;
 
         [Bindable]
         private var _clock:Clock;
@@ -71,7 +72,8 @@
         private function formatReistijd(parkingSpot:AbstractParkingSpot):String {
             var distance:Number = Math.round(parkingSpot.distance * 100) / 100;
             var percent:Number = distance / 35 * 3600;
-            return (Math.round(percent * 100) / 100) + " seconden";
+            return TimeUtil.convertToHHMMSS(Math.round(percent));
+
         }
         ]]>
     </fx:Script>
