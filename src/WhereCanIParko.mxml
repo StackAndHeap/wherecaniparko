@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" applicationComplete="applicationCompleteHandler(event)">
+<s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+                                  xmlns:s="library://ns.adobe.com/flex/spark"
+                                  applicationComplete="applicationCompleteHandler(event)"
+                                  splashScreenImage="@Embed('../icons/77x77.png')"
+                                  splashScreenScaleMode="none"
+                                  viewMenuOpen="true">
 
-    <fx:Script><![CDATA[
-        import mx.events.FlexEvent;
-        import mx.messaging.channels.SecureHTTPChannel;
+	<fx:Script><![CDATA[
+		import flash.sensors.Geolocation;
 
-        import services.ParkoService;
+		import model.Location;
+		import model.Session;
 
-        public var parkoService:ParkoService = new ParkoService();
+		import model.Session;
 
-        private function applicationCompleteHandler(event:FlexEvent):void {
+		import mx.events.FlexEvent;
 
-        }
+		import services.ParkoService;
 
-        ]]></fx:Script>
+		[Bindable]
+		public var parkoService:ParkoService = new ParkoService();
 
-    <s:navigationContent>
-        <s:Button label="Home trut" click="navigator.popToFirstView()"/>
-    </s:navigationContent>
+		private var _geo:Geolocation;
 
-</s:ViewNavigatorApplication>
+		private function applicationCompleteHandler(event:FlexEvent):void {
+			_geo = new Geolocation();
+			_geo.addEventListener(GeolocationEvent.UPDATE, geo_updateHandler);
+		}
+
+		private function geo_updateHandler(event:GeolocationEvent):void {
+			Session.location = new Location(event.latitude, event.longitude);
+		}
+		]]></fx:Script>
+
+	<s:ViewNavigator label="Parkings" width="100%" height="100%" firstView="view.Overview"/>
+	<s:ViewNavigator label="Instellingen" width="100%" height="100%" firstView="view.SettingsView"/>
+
+</s:TabbedViewNavigatorApplication>

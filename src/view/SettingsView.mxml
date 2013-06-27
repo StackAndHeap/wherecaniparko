@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        title="Instellingen">
+
+	<fx:Script>
+		<![CDATA[
+		import model.AbstractParkingSpot;
+		import model.Session;
+
+		private function checkBox1_changeHandler(event:Event):void {
+			Session.onlyShowFree = check.selected;
+			filterParkings();
+		}
+
+		private function isFree(item:AbstractParkingSpot):Boolean {
+			return item.isFree;
+		}
+
+		private function filterParkings():void {
+			Session.parkings.filterFunction = Session.onlyShowFree ? isFree : null;
+			Session.parkings.refresh();
+		}
+		]]>
+	</fx:Script>
+
+	<s:CheckBox id="check" selected="{Session.onlyShowFree}" label="Enkel vrije plaatsen"
+	            change="checkBox1_changeHandler(event)"/>
+
+</s:View>

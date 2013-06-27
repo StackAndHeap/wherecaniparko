@@ -8,5 +8,10 @@ public class Location {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+	public function toString():String {
+		return "Location(" + latitude + ", " + longitude + ")";
+	}
+
 }
 }
