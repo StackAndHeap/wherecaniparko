@@ -37,6 +37,11 @@
         private function backButton_clickHandler(event:MouseEvent):void {
             navigator.popView();
         }
+
+        private function startTimerButton_clickHandler(event:MouseEvent):void {
+            navigateButton.enabled = false;
+
+        }
         ]]>
     </fx:Script>
 
@@ -70,5 +75,6 @@
     </s:VGroup>
 
     <s:Button id="navigateButton" width="100%" label="Ga" click="navigateButton_clickHandler(event)"/>
+    <s:Button id="startTimerButton" width="100%" label="Ik ben er" click="startTimerButton_clickHandler(event)"/>
 
 </s:View>
