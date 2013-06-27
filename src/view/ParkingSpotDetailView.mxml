@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        title="{data.name}">
+
+    <fx:Script><![CDATA[
+        import model.ParkingSpot;
+        import model.Session;
+        import model.ShopAndGoSpot;
+
+        override public function set data(value:Object):void {
+            super.data = value;
+
+            currentState = (data is ParkingSpot) ? "parkingSpotState" : "shopAndGoState";
+        }
+
+        private function navigateButton_clickHandler(event:MouseEvent):void {
+            startNavigation();
+
+            if (data is ShopAndGoSpot) {
+                startShopAndGoTimer();
+            }
+        }
+
+        private function startShopAndGoTimer():void {
+            // start timer that informs user of remaning time on shop and go spot.
+            // alert on timer complete
+        }
+
+        private function startNavigation():void {
+            // open navigation app and supply data
+        }
+        ]]>
+    </fx:Script>
+
+    <s:states>
+        <s:State name="parkingSpotState"/>
+        <s:State name="shopAndGoState"/>
+    </s:states>
+
+    <s:layout>
+        <s:HorizontalLayout/>
+    </s:layout>
+
+    <s:Form width="100%">
+
+        <s:FormItem label="Adres" includeIn="parkingSpotState">
+            <s:Label text="{(data as ParkingSpot).address}"/>
+        </s:FormItem>
+
+        <s:FormItem label="Aantal vrije plaatsen" includeIn="parkingSpotState">
+            <s:Label text="{(data as ParkingSpot).numFree}"/>
+        </s:FormItem>
+
+        <s:FormItem label="Plaats nr" includeIn="shopAndGoState">
+            <s:Label text="{(data as ShopAndGoSpot).bayNumber}"/>
+        </s:FormItem>
+
+        <s:FormItem label="Afstand">
+            <s:Label text="{data.distance}"/>
+        </s:FormItem>
+
+        <s:FormItem label="Uw locatie">
+            <s:Label text="{Session.location}"/>
+        </s:FormItem>
+    </s:Form>
+
+    <s:Button id="navigateButton" label="Ga" click="navigateButton_clickHandler(event)"/>
+
+</s:View>
