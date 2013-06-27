@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" applicationComplete="applicationCompleteHandler(event)">
+
+    <fx:Script><![CDATA[
+        import mx.events.FlexEvent;
+        import mx.messaging.channels.SecureHTTPChannel;
+
+        import services.ParkoService;
+
+        public var parkoService:ParkoService = new ParkoService();
+
+        private function applicationCompleteHandler(event:FlexEvent):void {
+
+        }
+
+        ]]></fx:Script>
+
     <s:navigationContent>
         <s:Button label="Home trut" click="navigator.popToFirstView()"/>
-
     </s:navigationContent>
 
 </s:ViewNavigatorApplication>
