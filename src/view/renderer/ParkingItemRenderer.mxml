@@ -1,31 +1,54 @@
 <?xml version="1.0"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-	<!-- To change this template use File | Settings | File Templates. -->
+    <!-- To change this template use File | Settings | File Templates. -->
 
 
-	<fx:Script>
+    <fx:Script>
 		<![CDATA[
-		import model.AbstractParkingSpot;
-		import model.ParkingSpot;
-		import model.SpotState;
+        import model.AbstractParkingSpot;
+        import model.ParkingSpot;
+        import model.ShopAndGoSpot;
 
-		[Bindable]
-		private var _parking:AbstractParkingSpot;
+        [Bindable]
+        private var _parking:AbstractParkingSpot;
 
 
-		override public function set data(value:Object):void {
-			super.data = value;
-			_parking = value as AbstractParkingSpot;
-		}
-		]]>
+        override public function set data(value:Object):void {
+            super.data = value;
+            _parking = value as AbstractParkingSpot;
+        }
+
+        private function getFormattedName(parkingSpot:AbstractParkingSpot):String {
+            var result:String = parkingSpot.name;
+
+            if (parkingSpot is ShopAndGoSpot) {
+                result += " (plaats nr " + ShopAndGoSpot(parkingSpot).bayNumber + ")";
+            } else {
+                if (ParkingSpot(parkingSpot).isFree) {
+                    result += "(" + ParkingSpot(parkingSpot).numFree + " plaatsen vrij)";
+                }
+                else {
+                    result += "(vol)"
+                }
+            }
+
+            return result;
+        }
+        ]]>
 	</fx:Script>
 
-	<s:layout>
-		<s:HorizontalLayout verticalAlign="middle"/>
-	</s:layout>
+    <s:layout>
+        <s:HorizontalLayout verticalAlign="middle"/>
+    </s:layout>
 
-	<s:Label id="l" width="100%" text="{data.name}" paddingLeft="15" color="{_parking.isFree ? 0x00FF00 : 0xFF0000}"/>
+    <s:Label id="l" width="100%"
+             text="{getFormattedName(data as AbstractParkingSpot)}"
+             paddingLeft="15"
+             color="{_parking.isFree ? 0x00FF00 : 0xFF0000}"/>
 
-	<s:Button label="test"/>
+    <s:Spacer width="100%"/>
+
+    <s:Label id="distanceLabel"
+             text="{Math.round(data.distance * 100) / 100} Km'"/>
 
 </s:ItemRenderer>

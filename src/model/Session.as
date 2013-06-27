@@ -10,7 +10,7 @@ package model {
 		public static var onlyShowFree:Boolean = false;
 
 		[Bindable]
-		public static var location:Location;
+		public static var location:Location = new Location(50.827219, 3.254292);
 
 		[Bindable]
 		public static var showParkings:Boolean = true;
