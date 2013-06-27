@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Sensoren>
+ <Sensor State="Free" Parkingbay="1" Zone="1" Street="P KA17" Lat="50 49'32.76&quot;N" Long="3 15'41.59&quot;O">00.0000.97B8</Sensor>
+ <Sensor State="Free" Parkingbay="2" Zone="1" Street="P KA17" Lat="50 49'32.62&quot;N" Long="3 15'41.83&quot;O">00.0000.97A1</Sensor>
+ <Sensor State="Occupied" Parkingbay="1" Zone="1" Street="Doorniksestraat" Lat="50 49'32.36&quot;N" Long="3 16'2.88&quot;O">00.0000.991F</Sensor>
+ <Sensor State="Occupied" Parkingbay="2" Zone="1" Street="Doorniksestraat" Lat="50 49'32.50&quot;N" Long="3 16'2.76&quot;O">00.0000.98FA</Sensor>
+ <Sensor State="Occupied" Parkingbay="3" Zone="1" Street="Doorniksestraat" Lat="50 49'32.66&quot;N" Long="3 16'2.62&quot;O">00.0000.9946</Sensor>
+ <Sensor State="Free" Parkingbay="4" Zone="1" Street="Doorniksestraat" Lat="50 49'32.79&quot;N" Long="3 16'2.49&quot;O">00.0000.9926</Sensor>
+ <Sensor State="Free" Parkingbay="5" Zone="1" Street="Doorniksestraat" Lat="50 49'32.97&quot;N" Long="3 16'2.35&quot;O">00.0000.9911</Sensor>
+ <Sensor State="Occupied" Parkingbay="6" Zone="1" Street="Doorniksestraat" Lat="50 49'33.18&quot;N" Long="3 16'2.22&quot;O">00.0000.9922</Sensor>
+ <Sensor State="Occupied" Parkingbay="7" Zone="1" Street="Doorniksestraat" Lat="50 49'33.37&quot;N" Long="3 16'2.02&quot;O">00.0000.98FD</Sensor>
+ <Sensor State="Free" Parkingbay="8" Zone="1" Street="Doorniksestraat" Lat="50 49'33.50&quot;N" Long="3 16'1.90&quot;O">00.0000.9921</Sensor>
+ <Sensor State="Free" Parkingbay="1" Zone="2" Street="Doorniksestraat" Lat="50 49'35.17&quot;N" Long="3 16'0.18&quot;O">00.0000.9920</Sensor>
+ <Sensor State="Free" Parkingbay="2" Zone="2" Street="Doorniksestraat" Lat="50 49'35.29&quot;N" Long="3 16'0.05&quot;O">00.0000.98F0</Sensor>
+ <Sensor State="Free" Parkingbay="3" Zone="2" Street="Doorniksestraat" Lat="50 49'35.41&quot;N" Long="3 15'59.88&quot;O">00.0000.9901</Sensor>
+ <Sensor State="Occupied" Parkingbay="4" Zone="2" Street="Doorniksestraat" Lat="50 49'35.54&quot;N" Long="3 15'59.74&quot;O">00.0000.9919</Sensor>
+ <Sensor State="Occupied" Parkingbay="5" Zone="2" Street="Doorniksestraat" Lat="50 49'35.71&quot;N" Long="3 15'59.53&quot;O">00.0000.9918</Sensor>
+ <Sensor State="Occupied" Parkingbay="6" Zone="2" Street="Doorniksestraat" Lat="50 49'35.82&quot;N" Long="3 15'59.40&quot;O">00.0000.9913</Sensor>
+ <Sensor State="Occupied" Parkingbay="7" Zone="2" Street="Doorniksestraat" Lat="50 49'36.00&quot;N" Long="3 15'59.20&quot;O">00.0000.992D</Sensor>
+ <Sensor State="Occupied" Parkingbay="8" Zone="2" Street="Doorniksestraat" Lat="50 49'36.19&quot;N" Long="3 15'58.99&quot;O">00.0000.9929</Sensor>
+ <Sensor State="Occupied" Parkingbay="9" Zone="2" Street="Doorniksestraat" Lat="50 49'36.31&quot;N" Long="3 15'58.84&quot;O">00.0000.9906</Sensor>
+ <Sensor State="Occupied" Parkingbay="10" Zone="2" Street="Doorniksestraat" Lat="50 49'36.68&quot;N" Long="3 15'58.47&quot;O">00.0000.98FB</Sensor>
+ <Sensor State="Free" Parkingbay="11" Zone="2" Street="Doorniksestraat" Lat="50 49'36.82&quot;N" Long="3 15'58.29&quot;O">00.0000.9903</Sensor>
+ <Sensor State="Free" Parkingbay="12" Zone="2" Street="Doorniksestraat" Lat="50 49'36.96&quot;N" Long="3 15'58.15&quot;O">00.0000.990A</Sensor>
+ <Sensor State="Occupied" Parkingbay="13" Zone="2" Street="Doorniksestraat" Lat="50 49'37.14&quot;N" Long="3 15'57.92&quot;O">00.0000.98EF</Sensor>
+ <Sensor State="Occupied" Parkingbay="14" Zone="2" Street="Doorniksestraat" Lat="50 49'37.28&quot;N" Long="3 15'57.75&quot;O">00.0000.994C</Sensor>
+ <Sensor State="Occupied" Parkingbay="15" Zone="2" Street="Doorniksestraat" Lat="50 49'37.41&quot;N" Long="3 15'57.57&quot;O">00.0000.9904</Sensor>
+ <Sensor State="Free" Parkingbay="1" Zone="1" Street="Grote Markt" Lat="50 49'38.48&quot;N" Long="3 15'56.37&quot;O">00.0000.98FF</Sensor>
+ <Sensor State="Free" Parkingbay="2" Zone="1" Street="Grote Markt" Lat="50 49'38.64&quot;N" Long="3 15'56.10&quot;O">00.0000.98EA</Sensor>
+ <Sensor State="Free" Parkingbay="3" Zone="1" Street="Grote Markt" Lat="50 49'38.69&quot;N" Long="3 15'56.02&quot;O">00.0000.9902</Sensor>
+ <Sensor State="Occupied" Parkingbay="4" Zone="1" Street="Grote Markt" Lat="50 49'38.78&quot;N" Long="3 15'55.90&quot;O">00.0000.991A</Sensor>
+ <Sensor State="Free" Parkingbay="5" Zone="1" Street="Grote Markt" Lat="50 49'38.89&quot;N" Long="3 15'55.75&quot;O">00.0000.994D</Sensor>
+ <Sensor State="Free" Parkingbay="6" Zone="1" Street="Grote Markt" Lat="50 49'39.03&quot;N" Long="3 15'55.64&quot;O">00.0000.98F7</Sensor>
+ <Sensor State="Occupied" Parkingbay="7" Zone="1" Street="Grote Markt" Lat="50 49'39.12&quot;N" Long="3 15'55.53&quot;O">00.0000.991E</Sensor>
+</Sensoren>
