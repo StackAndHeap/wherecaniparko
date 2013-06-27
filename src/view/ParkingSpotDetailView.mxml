@@ -30,6 +30,10 @@
         private function startNavigation():void {
             // open navigation app and supply data
         }
+
+        private function backButton_clickHandler(event:MouseEvent):void {
+            navigator.popView();
+        }
         ]]>
     </fx:Script>
 
@@ -39,8 +43,12 @@
     </s:states>
 
     <s:layout>
-        <s:HorizontalLayout/>
+        <s:VerticalLayout/>
     </s:layout>
+
+    <s:navigationContent>
+        <s:Button label="Terug" click="backButton_clickHandler(event)"/>
+    </s:navigationContent>
 
     <s:Form width="100%">
 
@@ -65,6 +73,6 @@
         </s:FormItem>
     </s:Form>
 
-    <s:Button id="navigateButton" label="Ga" click="navigateButton_clickHandler(event)"/>
+    <s:Button id="navigateButton" width="100%" label="Ga" click="navigateButton_clickHandler(event)"/>
 
 </s:View>
