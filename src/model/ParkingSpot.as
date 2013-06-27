@@ -1,4 +1,6 @@
 package model {
+
+[Bindable]
 public class ParkingSpot extends AbstractParkingSpot {
 
     public var numOccupied:int;

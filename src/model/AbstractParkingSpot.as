@@ -1,4 +1,6 @@
 package model {
+
+[Bindable]
 public class AbstractParkingSpot {
 
     public var name:String;

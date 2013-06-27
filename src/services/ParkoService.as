@@ -1,8 +1,12 @@
 package services {
 import flash.events.Event;
+import flash.events.TimerEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
+import flash.utils.Dictionary;
+import flash.utils.Timer;
 
+import model.AbstractParkingSpot;
 import model.Address;
 import model.ParkingSpot;
 import model.ShopAndGoSpot;
@@ -20,32 +24,53 @@ public class ParkoService {
     private static const P_BROELTORENS:String = "P Broeltorens";
     private static const P_SCHOUWBURG:String = "P Schouwburg";
 
-    private var _lattitudes:Array = [];
+    private var _latitudes:Array = [];
     private var _longitudes:Array = [];
     private var _addresses:Array = [];
+
+    private var _updateTimer:Timer;
 
     [Bindable]
     public var parkingSpots:ArrayCollection = new ArrayCollection();
 
 
-    public function ParkoService() {
-        getShopAndGoData();
-        getBezettingData();
+    private var _parkingSpotLookup:Dictionary = new Dictionary();
 
+
+    public function ParkoService() {
+        initialize();
+    }
+
+    private function startUpdateTimer():void {
+        _updateTimer = new Timer(15000);
+        _updateTimer.addEventListener(TimerEvent.TIMER, updateTimer_timerHandler);
+        _updateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, updateTimer_timerCompleteHandler);
+        _updateTimer.start();
+    }
+
+    private function initialize():void {
         _addresses[P_VEEMARKT] = Address.getAddress("Belgium", "Kortrijk", "8500", "Veemarkt", "");
         _addresses[P_TACK] = Address.getAddress("Belgium", "Kortrijk", "8500", "Minister Tacklaan", "");
         _addresses[P_BROELTORENS] = Address.getAddress("Belgium", "Kortrijk", "8500", "Damkaai", "");
         _addresses[P_SCHOUWBURG] = Address.getAddress("Belgium", "Kortrijk", "8500", "Schouwburgplein", "");
 
-        _lattitudes[P_VEEMARKT] = 50.8312216768968;
-        _lattitudes[P_TACK] = 50.82365689950371;
-        _lattitudes[P_BROELTORENS] = 50.8312216768968;
-        _lattitudes[P_SCHOUWBURG] = 50.82612384626342;
+        _latitudes[P_VEEMARKT] = 50.8312216768968;
+        _latitudes[P_TACK] = 50.82365689950371;
+        _latitudes[P_BROELTORENS] = 50.8312216768968;
+        _latitudes[P_SCHOUWBURG] = 50.82612384626342;
 
         _longitudes[P_VEEMARKT] = 3.268091527309480;
         _longitudes[P_TACK] = 3.261152652587953;
         _longitudes[P_BROELTORENS] = 3.268091527309480;
         _longitudes[P_SCHOUWBURG] = 3.26671018966681;
+
+        getRemoteData();
+        startUpdateTimer();
+    }
+
+    private function getRemoteData():void {
+        getShopAndGoData();
+        getBezettingData();
     }
 
     private function getBezettingData():void {
@@ -69,8 +94,56 @@ public class ParkoService {
             shopAndGoSpot.bayNumber = object._Parkingbay;
             shopAndGoSpot.isFree = object._State == "Free";
 
-            parkingSpots.addItem(shopAndGoSpot);
+            addOrdUpdateParkingSpot(shopAndGoSpot);
         }
+    }
+
+    private function bezettingDataLoader_completeHandler(event:Event):void {
+        var parseData:Object = JSON.parse(event.currentTarget.data);
+
+        for each (var object:Object in parseData.bezettingparkings.parking) {
+            var parkingSpot:ParkingSpot = new ParkingSpot();
+            parkingSpot.name = object.parking;
+            parkingSpot.lat = _latitudes[parkingSpot.name];
+            parkingSpot.long = _longitudes[parkingSpot.name];
+            parkingSpot.isFree = (parkingSpot.numFree) ? SpotState.FREE : SpotState.OCCUPIED;
+            parkingSpot.numFree = object._vrij;
+            parkingSpot.numOccupied = object._bezet;
+            parkingSpot.capacity = object._capaciteit;
+
+            parkingSpot.address = _addresses[parkingSpot.name];
+
+            addOrdUpdateParkingSpot(parkingSpot);
+        }
+    }
+
+
+    private function addOrdUpdateParkingSpot(parkingSpot:AbstractParkingSpot):void {
+        var key:String = createLookupKey(parkingSpot);
+        var existingParkingSpot:AbstractParkingSpot = _parkingSpotLookup[key];
+
+        if (existingParkingSpot) {
+            existingParkingSpot.isFree = parkingSpot.isFree;
+
+            if (existingParkingSpot is ParkingSpot) {
+                ParkingSpot(existingParkingSpot).capacity = ParkingSpot(parkingSpot).capacity;
+                ParkingSpot(existingParkingSpot).numFree = ParkingSpot(parkingSpot).numFree;
+                ParkingSpot(existingParkingSpot).numOccupied = ParkingSpot(parkingSpot).numOccupied;
+            }
+        } else {
+            parkingSpots.addItem(parkingSpot);
+            _parkingSpotLookup[key] = parkingSpot;
+        }
+    }
+
+    private function createLookupKey(parkingSpot:AbstractParkingSpot):String {
+        var result:String = parkingSpot.name;
+
+        if (parkingSpot is ShopAndGoSpot) {
+            result += ShopAndGoSpot(parkingSpot).bayNumber;
+        }
+
+        return result;
     }
 
     private function convertDegreesToDecimal(value:String):Number {
@@ -83,23 +156,11 @@ public class ParkoService {
         return degrees + minutes / 60 + seconds / 3600;
     }
 
-    private function bezettingDataLoader_completeHandler(event:Event):void {
-        var parseData:Object = JSON.parse(event.currentTarget.data);
+    private function updateTimer_timerHandler(event:TimerEvent):void {
+        getRemoteData();
+    }
 
-        for each (var object:Object in parseData.bezettingparkings.parking) {
-            var parkingSpot:ParkingSpot = new ParkingSpot();
-            parkingSpot.name = object.parking;
-            parkingSpot.lat = _lattitudes[parkingSpot.name];
-            parkingSpot.long = _longitudes[parkingSpot.name];
-            parkingSpot.isFree = (parkingSpot.numFree) ? SpotState.FREE : SpotState.OCCUPIED;
-            parkingSpot.numFree = object._vrij;
-            parkingSpot.numOccupied = object._bezet;
-            parkingSpot.capacity = object._capaciteit;
-
-            parkingSpot.address = _addresses[parkingSpot.name];
-
-            parkingSpots.addItem(parkingSpot);
-        }
+    private function updateTimer_timerCompleteHandler(event:TimerEvent):void {
     }
 }
 }

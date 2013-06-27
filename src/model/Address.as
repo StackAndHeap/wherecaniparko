@@ -1,4 +1,6 @@
 package model {
+
+[Bindable]
 public class Address {
 
     public var country:String;
