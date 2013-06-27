@@ -26,8 +26,6 @@
         }
         ]]></fx:Script>
 
-    <s:Label text="{formatLocation(Session.location)}"/>
-
     <s:List id="list"
             dataProvider="{Session.parkings}"
             width="100%" height="100%"
