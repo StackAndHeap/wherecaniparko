@@ -5,6 +5,7 @@
                                   splashScreenImage="@Embed('../icons/77x77.png')"
                                   splashScreenScaleMode="none"
                                   viewMenuOpen="true"
+                                  contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
                                   splashScreenMinimumDisplayTime="2000">
 
 	<fx:Script><![CDATA[

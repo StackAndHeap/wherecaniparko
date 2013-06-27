@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-        title="Parkings">
+        title="Parkings" contentBackgroundAlpha="100" contentBackgroundColor="#2f3d39">
 
     <s:layout>
         <s:VerticalLayout/>
@@ -10,10 +10,6 @@
         import model.Location;
         import model.Session;
 
-        import spark.components.ViewNavigator;
-
-        import spark.components.ViewNavigatorApplication;
-
         import spark.events.IndexChangeEvent;
 
         private function list_changeHandler(event:IndexChangeEvent):void {
@@ -21,9 +17,7 @@
             navigator.pushView(ParkingSpotDetailView, list.selectedItem)
         }
 
-        private function formatLocation(location:Location):String {
-            return Math.random() + 'L: ' + Session.location;
-        }
+
         ]]></fx:Script>
 
     <s:List id="list"
