@@ -59,7 +59,8 @@
         ]]>
 	</fx:Script>
 
-    <s:HGroup contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100" verticalAlign="middle" width="100%" height="50">
+    <s:HGroup contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
+              verticalAlign="middle" width="100%" height="78">
 
         <s:Spacer width="5"/>
         <s:Image id="iconYes" width="32" height="32" visible="{_parking.isFree}" includeInLayout="{_parking.isFree}"
@@ -71,7 +72,7 @@
                      backgroundColor="#2f3d39"
                      text="{getFormattedName(_parking as AbstractParkingSpot)}"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      fontWeight="bold"
                      color="#FFFFFF"/>
 
@@ -79,11 +80,11 @@
                      backgroundColor="#2f3d39"
                      text="{getFormattedInfo(_parking as AbstractParkingSpot)}"
                      paddingLeft="5"
-                     fontSize="16"
+                     fontSize="26"
                      color="#FFFFFF"/>
         </s:VGroup>
 
-        <s:Label id="distanceLabel" color="#FFFFFF" paddingRight="15" fontSize="16"
+        <s:Label id="distanceLabel" color="#FFFFFF" paddingRight="15" fontSize="26"
                  text="{formatDistance(_parking)}"/>
     </s:HGroup>
 </s:ItemRenderer>
