@@ -4,7 +4,8 @@
                                   applicationComplete="applicationCompleteHandler(event)"
                                   splashScreenImage="@Embed('../icons/77x77.png')"
                                   splashScreenScaleMode="none"
-                                  viewMenuOpen="true">
+                                  viewMenuOpen="true"
+                                  splashScreenMinimumDisplayTime="2000">
 
 	<fx:Script><![CDATA[
 		import flash.sensors.Geolocation;
