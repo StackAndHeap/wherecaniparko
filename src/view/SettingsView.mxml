@@ -49,7 +49,7 @@
 	            change="showParkingsCheckBox_changeHandler(event)"/>
 
 	<s:CheckBox id="showShopAndGoCheckBox"
-	            label="Toon Shop 'n Go plaatsen"
+	            label="Toon Shop &amp; Go plaatsen"
 	            selected="{Session.showShopAndGo}"
 	            color="#FFFFFF"
 	            change="showShopAndGoCheckBox_changeHandler(event)"/>

@@ -9,7 +9,7 @@ public class Session {
     public static var parkings:ArrayCollection = new ArrayCollection();
 
     [Bindable]
-    public static var onlyShowFree:Boolean = false;
+    public static var onlyShowFree:Boolean = true;
 
     [Bindable]
     public static var location:Location = new Location(50.827219, 3.254292);
