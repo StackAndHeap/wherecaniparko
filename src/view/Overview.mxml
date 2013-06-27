@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-        title="Parkings" contentBackgroundAlpha="100" contentBackgroundColor="#2f3d39">
+        title="Parkings" contentBackgroundAlpha="100" backgroundColor="#2f3d39">
 
     <s:layout>
-        <s:VerticalLayout/>
+        <s:VerticalLayout paddingBottom="10" paddingTop="10"/>
     </s:layout>
 
     <fx:Script><![CDATA[

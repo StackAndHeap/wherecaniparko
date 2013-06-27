@@ -2,11 +2,12 @@
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
                                   xmlns:s="library://ns.adobe.com/flex/spark"
                                   applicationComplete="applicationCompleteHandler(event)"
-                                  splashScreenImage="@Embed('../icons/77x77.png')"
+                                  splashScreenImage="@Embed('../icons/91x91.png')"
                                   splashScreenScaleMode="none"
                                   viewMenuOpen="true"
                                   contentBackgroundColor="#2f3d39" contentBackgroundAlpha="100"
-                                  splashScreenMinimumDisplayTime="2000">
+                                  splashScreenMinimumDisplayTime="2000"
+                                  backgroundColor="#2f3d39">
 
 	<fx:Script><![CDATA[
 		import flash.sensors.Geolocation;

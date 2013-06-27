@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-        title="Instellingen">
+        title="Instellingen" contentBackgroundAlpha="100" backgroundColor="#2f3d39">
 
 	<s:layout>
 		<s:VerticalLayout paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10"/>
@@ -16,7 +16,6 @@
 		}
 
 		private function filterParkings():void {
-			Session.parkings.filterFunction = Session.onlyShowFree ? isFree : null;
 			Session.parkings.refresh();
 		}
 
@@ -26,12 +25,12 @@
 		}
 
 		private function showParkingsCheckBox_changeHandler(event:Event):void {
-			Session.showParkings = check.selected;
+			Session.showParkings = showParkingsCheckBox.selected;
 			filterParkings();
 		}
 
 		private function showShopAndGoCheckBox_changeHandler(event:Event):void {
-			Session.showShopAndGo = check.selected;
+			Session.showShopAndGo = showShopAndGoCheckBox.selected;
 			filterParkings();
 		}
 		]]>
@@ -40,16 +39,19 @@
 	<s:CheckBox id="check"
 	            selected="{Session.onlyShowFree}"
 	            label="Enkel vrije plaatsen"
+	            color="#FFFFFF"
 	            change="checkBox1_changeHandler(event)"/>
 
 	<s:CheckBox id="showParkingsCheckBox"
 	            label="Toon parkings"
 	            selected="{Session.showParkings}"
+	            color="#FFFFFF"
 	            change="showParkingsCheckBox_changeHandler(event)"/>
 
 	<s:CheckBox id="showShopAndGoCheckBox"
 	            label="Toon Shop 'n Go plaatsen"
 	            selected="{Session.showShopAndGo}"
+	            color="#FFFFFF"
 	            change="showShopAndGoCheckBox_changeHandler(event)"/>
 
 </s:View>

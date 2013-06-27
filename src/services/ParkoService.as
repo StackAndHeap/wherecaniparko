@@ -81,6 +81,21 @@ public class ParkoService {
         startUpdateTimer();
 
         Session.parkings = parkingSpots;
+	    Session.parkings.filterFunction = function(item:AbstractParkingSpot):Boolean {
+		    if (Session.onlyShowFree) {
+			    if (!item.isFree) {
+				    return false;
+			    }
+		    }
+
+		    if ((item is ParkingSpot) && Session.showParkings) {
+			    return true;
+		    } else if ((item is ShopAndGoSpot) && Session.showShopAndGo) {
+			    return true;
+		    }
+
+		    return false;
+	    }
     }
 
     private function getRemoteData():void {
